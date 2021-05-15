@@ -5,27 +5,27 @@ class OrderDetails extends Model {};
 OrderDetails.init({
     orderID: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     productId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     amount: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     pricenet : {
         type: DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     },
     pricegross: {
         type: DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     },
     tax : {
         type: DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     }
 }, {
     sequelize,
