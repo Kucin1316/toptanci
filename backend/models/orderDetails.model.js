@@ -3,36 +3,37 @@ const sequelize = require("../config/database");
 class OrderDetails extends Model {};
 
 OrderDetails.init({
-    orderID: {
+    orderId: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false
     },
     productId: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false
     },
     amount: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false
     },
-    pricenet : {
+    priceNet : {
         type: DataTypes.DECIMAL,
-        allowNull: true
+        allowNull: false
     },
-    pricegross: {
+    priceGross: {
         type: DataTypes.DECIMAL,
-        allowNull: true
+        allowNull: false
     },
-    tax : {
+    tax: {
         type: DataTypes.DECIMAL,
-        allowNull: true
+        allowNull:false
     }
+   
 }, {
     sequelize,
     modelName: "OrderDetails",
     charset: "utf8"
 });
 
-//OrderDetails.sync({force: true});
+ //OrderDetails.sync({force: true});
 
 module.exports = OrderDetails;

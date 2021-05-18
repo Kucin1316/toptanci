@@ -2,7 +2,7 @@ const {productService} = require("../services");
 
 async function add(req,res) {
     const {productData} = req.body;
-    productData.companyId = req.companyId;
+    productData.userId = req.userId;
     const status = productService.add(productData);
     res.json({status})
 }

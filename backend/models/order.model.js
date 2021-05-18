@@ -3,11 +3,8 @@ const sequelize = require("../config/database");
 class Order extends Model {};
 
 Order.init({
-    orderDate: {
-        type: DataTypes.DATE,
-        allowNull: true
-    },
-    ordererID : {
+    
+    ordererId : {
         type : DataTypes.INTEGER,
         allowNull: true
     },
@@ -17,13 +14,14 @@ Order.init({
     },
     status:{
         type:DataTypes.TEXT,
-        allowNull:true
+        allowNull:true,
+        defaultValue:"pending"
     },
     totalPriceNet: {
         type: DataTypes.DECIMAL,
         allowNull: true
     },
-    totalPricegross: {
+    totalPriceGross: {
         type: DataTypes.DECIMAL,
         allowNull: true
     }
@@ -35,6 +33,6 @@ Order.init({
 
 
 
-//Order.sync({force:true});
+ //Order.sync({force:true});
 
 module.exports = Order;

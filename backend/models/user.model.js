@@ -11,7 +11,7 @@ User.init({
     type : DataTypes.TEXT,
     allowNull : false
    } , 
-   companyID: {
+   companyName: {
        type : DataTypes.TEXT,
        allowNull : false
    } , 
@@ -25,6 +25,6 @@ User.init({
    } 
 } ,{sequelize, modelName: "User", charset: "utf8"})
 
-//User.sync({force:true});
+ //User.sync({force:true});
 
 module.exports = User;

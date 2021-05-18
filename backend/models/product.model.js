@@ -3,15 +3,11 @@ const sequelize = require("../config/database");
 class Product extends Model {} ;
 
 Product.init({
-    companyId: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    productID: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    barCode:
+    barcode:
     {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -20,11 +16,11 @@ Product.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
-    pricenet : {
+    priceNet : {
         type: DataTypes.DECIMAL,
         allowNull: false
     },
-    pricegross: {
+    priceGross: {
         type: DataTypes.DECIMAL,
         allowNull: false
     },
@@ -45,7 +41,7 @@ Product.init({
     modelName: "Product",
     charset : "utf8"
 })
-
+ 
 //Product.sync({force: true});  // Komutu ile tablodaki degisiklikleri veritabaninda güncellemeye zorluyor. 
 
 module.exports = Product;
