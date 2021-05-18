@@ -9,14 +9,14 @@ async function add(req,res) {
 
 async function getAll(req,res) {
     console.log("-..-------------------")
-    let products = await productService.getAll(req.companyId);
+    let products = await productService.getAll(req.userId);
     res.json({products})
 }
 
 async function getById(req,res) {
-    console.log(req.companyId)
+    console.log(req.userId)
     console.log(req.params.id)
-    let product = await productService.getById(req.companyId,req.params.id);
+    let product = await productService.getById(req.userId,req.params.id);
     console.log(product)
     if (product) {
         res.json({product});
@@ -27,8 +27,8 @@ async function getById(req,res) {
 
 async function deleteById(req,res) {
     const {productID} = req.params;
-    const companyId = req.companyId;
-    let status = await productService.deleteById(companyId,productID);
+    const userId = req.userId;
+    let status = await productService.deleteById(userId,productID);
     if (status) {
         res.json({status:"Ürün silindi."})
     }else {
@@ -37,9 +37,9 @@ async function deleteById(req,res) {
 }
 
 async function updateById(req,res) {
-    const companyId = req.companyId;
+    const userId = req.userId;
     const {productData,productID} = req.body;
-    let status = await productService.updateById(companyId,productID,productData);
+    let status = await productService.updateById(userId,productID,productData);
     if (status) {
         res.json({status:"Ürün silindi."})
     }else {

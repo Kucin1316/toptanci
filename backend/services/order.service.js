@@ -17,6 +17,19 @@ function add(orderData) {
   })
 }
 
+function getIncomingOrder(id) {
+  //supplierId
+  return order.findAll({where:{
+    supplierId:id
+  }})
+}
+function getPlacedOrder(id) {
+  //ordererId 
+  return order.findAll({where:{
+    ordererId:id
+  }})
+}
 
 
-module.exports = {deleteOrder,updateStatus,add};
+
+module.exports = {deleteOrder,updateStatus,add,getIncomingOrder,getPlacedOrder};

@@ -1,0 +1,64 @@
+{
+    "/user": {
+        "/register":{
+            "post":{
+                "userData":{
+                    "email":"selami@gmail.com",
+                    "password":"selo123.",
+                    "companyName":"Yildiz Müzik",
+                    "adress":"Istanbul",
+                    "tel":"0216 123456"
+                   }
+            }
+        },
+        "/login":{
+            "post":{
+                    "email":"selami@gmail.com",
+                    "password":"selo123."
+            }
+        }
+    },
+    "/product": {
+        "/": {
+            "post": {
+                "productData": {
+                    "barcode": "1234567980",
+                    "name": "Kola",
+                    "priceNet": 10,
+                    "priceGross": 12,
+                    "tax": 19,
+                    "amount": 1,
+                    "unit": "Adet"
+                }
+            },
+            "get": {}
+        },
+        "/:id": {
+            "get": {}
+        }
+    },
+    "/order": {
+        "/": {
+            "post": {
+                "orderData": {
+                    "ordererId": 2,
+                    "supplierId": 3,
+                    "totalPriceNet": 100,
+                    "totalPriceGross": 119,
+                    "orderDetails": [
+                        {
+                            "productId": 100,
+                            "amount": 1,
+                            "priceNet": 10,
+                            "priceGross": 12,
+                            "tax": 5.00
+                        }
+                    ]
+                }
+            }
+        },
+        "/:id": {
+            "delete": {}
+        }
+    }
+}

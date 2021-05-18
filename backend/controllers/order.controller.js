@@ -35,4 +35,17 @@ async function add(req, res) {
   }
 }
 
-module.exports = { deleteById, updateStatus ,add};
+async function get(req,res){
+  let {orderType} = req.params;
+  //gelen/alınan siparişler
+  if(orderType=="incoming"){
+   let incomingOrders =  await orderService.getIncomingOrder(req.userId);
+   
+  }
+  //verdiğimiz siparişler
+  else if(orderType == "placed"){
+
+  }
+}
+
+module.exports = { deleteById, updateStatus ,add,get};
