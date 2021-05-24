@@ -20,13 +20,13 @@ function add(orderData) {
 function getIncomingOrder(id) {
   //supplierId
   return order.findAll({where:{
-    supplierId:id
+    supplierId:id, status:'SIPARIS'
   }})
 }
 function getPlacedOrder(id) {
   //ordererId 
   return order.findAll({where:{
-    ordererId:id
+    ordererId:id,status:'SIPARIS'
   }})
 }
 

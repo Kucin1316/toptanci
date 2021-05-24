@@ -40,11 +40,18 @@ async function get(req,res){
   //gelen/alınan siparişler
   if(orderType=="incoming"){
    let incomingOrders =  await orderService.getIncomingOrder(req.userId);
-   
+   const result = await orderDetailsService.get(incomingOrders);
+   console.log(result);
+   res.json({incoming:result})
   }
   //verdiğimiz siparişler
   else if(orderType == "placed"){
-
+    let placedOrders =  await orderService.getPlacedOrder(req.userId);
+    const result = await orderDetailsService.get(placedOrders);
+    console.log(result);
+    res.json({placed:result})
+  } else {
+    res.json({status:"error"})
   }
 }
 
