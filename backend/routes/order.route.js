@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { orderController } = require("../controllers");
 const {auth} = require("../middlewares");
 
-const {mail} = require("../utils/mail")
+
 
 router.use(auth);
 

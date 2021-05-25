@@ -11,9 +11,13 @@ function register(userData) {
     return user.create(userData);
 }
 
+function getById(id){
+    return user.findByPk(id);
+}
+
 function updateById(userData) {
     const result = user.update({userData},{where: id=userData.id})  // todo ?
     return result;
 }
 
-module.exports = {login,register,updateById};
+module.exports = {login,register,updateById,getById};

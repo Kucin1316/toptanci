@@ -7,6 +7,10 @@ Product.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    productId:{
+        type:DataTypes.TEXT,
+        allowNull:false
+    },
     barcode:
     {
         type: DataTypes.TEXT,

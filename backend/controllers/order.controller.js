@@ -1,5 +1,6 @@
  
-const { orderService, orderDetailsService } = require("../services");
+const { orderService, orderDetailsService, userService, productService } = require("../services");
+const {sendMail} = require("../utils/mail")
 
 async function deleteById(req, res) {
     try {
@@ -20,16 +21,26 @@ async function updateStatus(req, res) {
 async function add(req, res) {
   try {
     const orderId = (await orderService.add(req.body.orderData)).id;
-    console.log(orderId);
     const orderDetails = req.body.orderData.orderDetails;
 
     for (let index = 0; index < orderDetails.length; index++) {
       const element = orderDetails[index];
       element.orderId = orderId;
-      console.log("****",element)
       await orderDetailsService.add(element);
     }
     res.json({ status: "succesfull" });
+    let {ordererId,supplierId} = req.body.orderData;
+    let orderer = await userService.getById(ordererId);
+    let supplier = await userService.getById(supplierId);
+    let order = {orderer,supplier, ...req.body.orderData}
+   for (let i = 0; i < order.orderDetails.length; i++) {
+    let productId = order.orderDetails[i].productId;
+    let product = await productService.getById(supplierId,productId)
+    order.orderDetails[i] = { product, ...order.orderDetails[i] };
+   }
+      
+    sendMail(orderer.email,"Siparişiniz alındı",{order},"order")
+    sendMail(supplier.email,"Yeni Sipariş geldi",{order},"order")
   } catch (error) {
     res.json({ status: "failed" ,error});
   }

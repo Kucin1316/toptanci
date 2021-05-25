@@ -9,9 +9,8 @@ function deleteById(companyId, id) {
   return product.destroy({ where: (productId = id), companyId: companyId });
 }
 
-function getById(userId, productID) {
-  console.log(productID)
-  return product.findOne({ where: { userId, productID } });
+function getById(userId, id) {
+  return product.findOne({ where: { userId, id } });
 }
 
 function getAll(userId) {
