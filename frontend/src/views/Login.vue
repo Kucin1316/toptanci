@@ -1,17 +1,30 @@
 <template>
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
-     
-      
-      <v-flex  xs12 sm8 md4>
-        <v-btn @click="selected='login'">Login</v-btn>
-      <v-btn @click="selected='register'">Register</v-btn>
-        <v-card v-show="selected=='login'" class="elevation-12">
-          <v-toolbar dark color="primary">
+      <v-flex align-self-start xs12 sm8 md4>
+        <div class="d-flex justify-space-between">
+          <v-btn
+            :class="selected == 'login' && 'active'"
+            :elevation="selected == 'login' ? 0 : 20"
+            width="50%"
+            @click="selected = 'login'"
+            >Login</v-btn
+          >
+          <v-btn
+            :class="selected == 'register' && 'active'"
+            :elevation="selected == 'register' ? 0 : 20"
+            width="50%"
+            @click="selected = 'register'"
+            >Register</v-btn
+          >
+        </div>
+
+        <v-card v-show="selected == 'login'" class="mt-3 elevation-12">
+          <v-toolbar dark color="red darken-3">
             <v-toolbar-title>Login form</v-toolbar-title>
           </v-toolbar>
-          <v-alert color="warning" v-if="error">
-            <h2> <v-icon>mdi-alert</v-icon>  Email or password incorrect </h2>
+             <v-alert color="deep-orange darken-1" class="white--text" v-if="error">
+            <h3><v-icon class="white--text">mdi-alert</v-icon> Email or password incorrect</h3>
           </v-alert>
           <v-card-text>
             <v-form>
@@ -32,16 +45,20 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="signIn">Login</v-btn>
+            <v-btn
+              color="red darken-3"
+              width="25%"
+              class="white--text"
+              @click="signIn"
+              >Login <v-spacer></v-spacer> <v-icon> mdi-login </v-icon></v-btn
+            >
           </v-card-actions>
         </v-card>
-          <v-card v-show="selected=='register'" class="elevation-12">
-          <v-toolbar dark color="primary">
+        <v-card v-show="selected == 'register'" class="mt-3 elevation-12">
+          <v-toolbar dark color="red darken-3">
             <v-toolbar-title>Register form</v-toolbar-title>
           </v-toolbar>
-          <v-alert color="warning" v-if="error">
-            <h2> <v-icon>mdi-alert</v-icon>  Email or password incorrect </h2>
-          </v-alert>
+      
           <v-card-text>
             <v-form>
               <v-text-field
@@ -50,19 +67,19 @@
                 v-model="register.email"
                 type="email"
               ></v-text-field>
-                <v-text-field
+              <v-text-field
                 prepend-icon="mdi-account"
                 label="Company Name"
                 v-model="register.companyName"
                 type="text"
               ></v-text-field>
-                <v-text-field
+              <v-text-field
                 prepend-icon="mdi-account"
                 label="Adress"
                 v-model="register.adress"
                 type="adress"
               ></v-text-field>
-                <v-text-field
+              <v-text-field
                 prepend-icon="mdi-account"
                 label="Tel"
                 v-model="register.tel"
@@ -79,7 +96,14 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="signUp">Register</v-btn>
+            <v-btn
+              color="red darken-3"
+              width="25%"
+              class="white--text"
+              @click="signUp"
+            >
+              Register <v-spacer></v-spacer> <v-icon> mdi-account-plus </v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -87,49 +111,63 @@
   </v-container>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
-  data(){
+  data() {
     return {
-      login:{
-         email:"",
-        password:"",
+      login: {
+        email: "",
+        password: "",
       },
-      register:{
-        email:"",
-        password:"",
-        companyName:"",
-        adress:"",
-        tel:""
+      register: {
+        email: "",
+        password: "",
+        companyName: "",
+        adress: "",
+        tel: "",
       },
-      error:false,
-      selected:"login"
-    }
+      error: false,
+      selected: "login",
+    };
   },
-  methods:{
-    signIn(){
-      const {email,password} = this.login;
-      this.axios.post("http://localhost:85/user/login",{email,password})
-      .then(( {data} )=>{
-        if(data.error){
-          this.error = true;
-        }else{
-          this.$router.push('/');
-        }
-      })
+  methods: {
+    ...mapActions(['setLogin'])
+    ,
+    signIn() {
+      const { email, password } = this.login;
+      this.axios
+        .post("http://localhost:85/user/login", { email, password })
+        .then(({ data }) => {
+          if (data.error) {
+            this.error = true;
+          } else {
+            //this.$router.push("/");
+            console.log(data);
+            this.setLogin(data)
+            
+          }
+        });
     },
-    signUp(){
-       const {email,password,companyName,adress,tel} = this.register;
-       let userData = {email,password,companyName,adress,tel}
-      this.axios.post("http://localhost:85/user/register",{userData})
-      .then(( {data} )=>{
-        if(data.error){
-          this.error = true;
-        }else{
-         console.log(data);
-         console.log("Kayıt Başarılı");
-        }
-      })
-    }
-  }
-}
+    signUp() {
+      const { email, password, companyName, adress, tel } = this.register;
+      let userData = { email, password, companyName, adress, tel };
+      this.axios
+        .post("http://localhost:85/user/register", { userData })
+        .then(({ data }) => {
+          if (data.error) {
+            this.error = true;
+          } else {
+            console.log(data);
+            console.log("Kayıt Başarılı");
+          }
+        });
+    },
+  },
+};
 </script>
+
+<style scoped>
+.active {
+  border-bottom: red 5px solid;
+}
+</style>

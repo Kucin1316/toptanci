@@ -1,13 +1,13 @@
 <template>
   <v-app id="inspire">
 
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar color="blue darken-3" class="white--text" app>
+      <v-app-bar-nav-icon class="white--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Toptancim</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn to="/login">
-        Login
+      <v-btn color="blue darken-3" elevation="20" class="white--text"  to="/login">
+        Login <v-icon>mdi-login</v-icon>
       </v-btn>
     </v-app-bar>
 

@@ -3,11 +3,16 @@ const {createToken} = require("../utils/token");
 
 async function login(req,res) {
     const {email,password} = req.body;
-    const status = await userService.login(email,password);
-    if (status) {
-        let id = status.dataValues.id;
+    const user = await userService.login(email,password);
+    if (user) {
+        let id = user.dataValues.id;
         const token = createToken({email,password,id});
-        res.json({status,token})
+        
+        delete user.dataValues.password;
+        delete user.dataValues.updatedAt;
+        delete user.dataValues.createdAt;
+
+        res.json({user,token,status:'successful'})
     } else    {
         res.json({error: "Kullanici adi yada sifre hatali"})
     }
