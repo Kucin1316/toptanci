@@ -40,6 +40,7 @@
                 label="Password"
                 v-model="login.password"
                 type="password"
+                @keydown.enter="signIn"
               ></v-text-field>
             </v-form>
           </v-card-text>
@@ -91,6 +92,7 @@
                 label="Password"
                 v-model="register.password"
                 type="password"
+                @keydown.enter="signUp"
               ></v-text-field>
             </v-form>
           </v-card-text>
@@ -141,7 +143,7 @@ export default {
           if (data.error) {
             this.error = true;
           } else {
-            //this.$router.push("/");
+            this.$router.push("/dashboard");
             console.log(data);
             this.setLogin(data)
             

@@ -32,6 +32,10 @@ export default new Vuex.Store({
       commit("setIsLogin",true);
     }
   },
-  getters:{},
+  getters:{
+    loginData({token,isLogin}) {
+      return {token,isLogin}
+    }
+  },
   plugins:[vuexLocal.plugin]
 })

@@ -17,6 +17,7 @@
       temporary
     >
       <!--  -->
+      <h1>Selami Sahin</h1>
     </v-navigation-drawer>
 
     <v-main class="grey lighten-2">
