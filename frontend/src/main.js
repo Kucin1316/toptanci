@@ -6,6 +6,18 @@ import vuetify from './plugins/vuetify'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+axios.defaults.baseURL = "http://localhost:85"
+
+axios.interceptors.request.use((config)=>{
+  config.headers.token = store.state.token;
+  return config;
+},
+function (error) {
+  console.log("sıkıntı çıktı",error);
+  return Promise.reject(error);
+})
+
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false

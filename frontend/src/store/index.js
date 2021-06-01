@@ -12,7 +12,8 @@ export default new Vuex.Store({
   state: {
     token:"",
     user:{},
-    isLogin:false
+    isLogin:false,
+    products:[],
   },
   mutations: {
     setToken(state,token){
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     setIsLogin(state,data){
       state.isLogin = data;
+    },
+    setProducts(state,data){
+      state.products = data;
     }
   },
   actions: {
@@ -30,11 +34,17 @@ export default new Vuex.Store({
       commit("setUserData",data.user)
       commit("setToken",data.token)
       commit("setIsLogin",true);
+    },
+    setProducts({commit},data){
+      commit("setProducts",data)
     }
   },
   getters:{
     loginData({token,isLogin}) {
       return {token,isLogin}
+    },
+    products({products}){
+      return products;
     }
   },
   plugins:[vuexLocal.plugin]

@@ -10,6 +10,7 @@ async function add(req,res) {
 async function getAll(req,res) {
     console.log("-..-------------------")
     let products = await productService.getAll(req.userId);
+    console.log(products);
     res.json({products})
 }
 

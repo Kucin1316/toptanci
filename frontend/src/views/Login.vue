@@ -138,15 +138,14 @@ export default {
     signIn() {
       const { email, password } = this.login;
       this.axios
-        .post("http://localhost:85/user/login", { email, password })
+        .post("/user/login", { email, password })
         .then(({ data }) => {
           if (data.error) {
             this.error = true;
           } else {
+             this.setLogin(data)
             this.$router.push("/dashboard");
-            console.log(data);
-            this.setLogin(data)
-            
+            console.log(data);     
           }
         });
     },
@@ -154,13 +153,14 @@ export default {
       const { email, password, companyName, adress, tel } = this.register;
       let userData = { email, password, companyName, adress, tel };
       this.axios
-        .post("http://localhost:85/user/register", { userData })
+        .post("/user/register", { userData })
         .then(({ data }) => {
           if (data.error) {
             this.error = true;
           } else {
-            console.log(data);
-            console.log("Kayıt Başarılı");
+            this.login.email = this.register.email;
+            this.login.password = this.register.password;
+            this.signIn();
           }
         });
     },

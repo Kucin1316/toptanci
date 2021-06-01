@@ -1,5 +1,4 @@
 const { product } = require("../models");
-const {send} = require("../utils/mail")
 
 function add(productData) {
   return product.create(productData);
@@ -15,7 +14,7 @@ function getById(userId, id) {
 
 function getAll(userId) {
   console.log(userId)
-  return product.findAll({ where: { userId } });
+  return product.findAll({ where: { userId }, });
 }
 
 function updateById(userId, productID, data) {
