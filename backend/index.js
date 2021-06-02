@@ -18,3 +18,13 @@ app.use("/order", orderRouter)
 app.listen(process.env.SERVER_PORT,()=> {
     console.log("Server is running " + `http://localhost:${process.env.SERVER_PORT}`);
 })
+
+
+/*
+
+From Huese to Everyone:  10:07 PM
+SELECT userId,CompanyName,Adress,COUNT(*) AS urunsayisi FROM Users u
+INNER JOIN Products p ON u.id=p.userId
+GROUP BY userId,CompanyName,Adress
+
+*/

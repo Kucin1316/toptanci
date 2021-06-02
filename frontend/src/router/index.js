@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
-import Products from '../views/Products.vue'
+import MyProducts from '../views/MyProducts.vue'
 
 import store from '../store'
 
@@ -34,9 +34,9 @@ const routes = [
     }
   },
   {
-    path: '/products',
-    name: 'Products',
-    component: Products,
+    path: '/myProducts',
+    name: 'MyProducts',
+    component: MyProducts,
     meta: {
       auth: true
     }

@@ -143,6 +143,7 @@ export default {
           if (data.error) {
             this.error = true;
           } else {
+            data.isLogin = true;
              this.setLogin(data)
             this.$router.push("/dashboard");
             console.log(data);     

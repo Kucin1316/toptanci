@@ -30,10 +30,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setLogin({commit},data){
+    setLogin({commit},data={user:{},token:"",isLogin:false}){
       commit("setUserData",data.user)
       commit("setToken",data.token)
-      commit("setIsLogin",true);
+      commit("setIsLogin",data.isLogin);
     },
     setProducts({commit},data){
       commit("setProducts",data)

@@ -18,6 +18,14 @@ function (error) {
   return Promise.reject(error);
 })
 
+axios.interceptors.response.use((config)=>{
+  console.log("HER CEVAP BİZDEN GEÇER",config);
+  if(config.data.status == "Permission denied"){
+    store.dispatch("setLogin")
+  }
+  return config;
+})
+
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false

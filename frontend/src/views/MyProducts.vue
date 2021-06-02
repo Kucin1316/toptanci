@@ -1,18 +1,21 @@
 <template>
   <v-container>
-    <v-row>
+    <!-- <v-row>
       <v-col  v-for="product in products"  :key="product.id" cols="3">
-        <v-card width="18rem">
-          <h1>{{ product.name }}</h1>
-        </v-card>
+          <ProductCard/>
       </v-col>
-    </v-row>
+    </v-row> -->
+    <ProductCard :items="products"/>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import ProductCard from "../components/common/ProductCard";
 export default {
+  components:{
+    ProductCard
+  },
   beforeMount() {
     this.getProducts();
   },
@@ -20,6 +23,7 @@ export default {
     async getProducts() {
       let res = await this.axios.get("/product");
       let products = res.data.products;
+      console.log(res);
       this.setProducts(products);
     },
     ...mapActions(["setProducts"]),
