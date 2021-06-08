@@ -11,6 +11,12 @@ function register(userData) {
     return user.create(userData);
 }
 
+function getSuppliers() {
+    return user.sequelize.query(`SELECT userId,CompanyName,Adress,COUNT(*) AS urunsayisi FROM Users u
+    INNER JOIN Products p ON u.id=p.userId
+    GROUP BY userId,CompanyName,Adress`)
+}
+
 function getById(id){
     return user.findByPk(id);
 }
@@ -20,4 +26,4 @@ function updateById(userData) {
     return result;
 }
 
-module.exports = {login,register,updateById,getById};
+module.exports = {login,register,updateById,getById,getSuppliers};

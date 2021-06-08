@@ -18,6 +18,12 @@ async function login(req,res) {
     }
 }
 
+async function getSuppliers(req,res) {
+    let suppliers = await userService.getSuppliers();
+    suppliers = suppliers[0]
+    res.json({suppliers});
+}
+
 async function register(req,res) {
     const {userData} = req.body;
     console.log(userData);
@@ -31,4 +37,4 @@ async function updateById(req,res) {
     return status
 }
 
-module.exports = {login,register};
+module.exports = {login,register,getSuppliers};
