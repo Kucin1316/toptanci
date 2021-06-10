@@ -12,7 +12,7 @@ function register(userData) {
 }
 
 function getSuppliers() {
-    return user.sequelize.query(`SELECT userId,CompanyName,Adress,COUNT(*) AS urunsayisi FROM Users u
+    return user.sequelize.query(`SELECT userId as id,companyName,adress,COUNT(*) AS urunSayisi FROM Users u
     INNER JOIN Products p ON u.id=p.userId
     GROUP BY userId,CompanyName,Adress`)
 }
