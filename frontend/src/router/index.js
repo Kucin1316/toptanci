@@ -7,6 +7,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import MyProducts from '../views/MyProducts.vue'
+import Supplier from '../views/Supplier.vue';
 
 import store from '../store'
 
@@ -37,6 +38,14 @@ const routes = [
     path: '/myProducts',
     name: 'MyProducts',
     component: MyProducts,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/supplier/:id',
+    name: 'Supplier',
+    component: Supplier,
     meta: {
       auth: true
     }

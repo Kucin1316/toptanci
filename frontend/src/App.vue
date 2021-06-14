@@ -3,16 +3,19 @@
     <v-app-bar color="yellow darken-1" class="black--text" app>
       <div class="d-flex justify-space-around align-center" style="width: 100%">
         <div>
-          <v-toolbar-title>Toptanwsdsdfcim</v-toolbar-title>
+          <v-toolbar-title>Toptancı</v-toolbar-title>
         </div>
         <div class="mt-7">
           <v-combobox placeholder="Suppliers..." :items="items" clearable solo>
             <template v-slot:item="{ index, item }">
-              <p :key="index" @click="$router.push('/supplier/'+item.id)" >{{item.companyName}} </p>
+              <p :key="index" @click="$router.push(`/supplier/${item.id}`)">
+                {{ item.companyName }}
+              </p>
             </template>
-<template v-slot:selection="{ index, item }">
-{{item.companyName}} 🚀
-</template>
+            <!-- eslint-disable-next-line -->
+            <template v-slot:selection="{ index, item }">
+              {{ item.companyName }} 🚀
+            </template>
           </v-combobox>
         </div>
         <div>
@@ -45,22 +48,22 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
-    items:[]
+    items: [],
   }),
   computed: {
     ...mapGetters(["loginData"]),
   },
   beforeMount() {
-    this.axios.get('/user/suppliers').then(({data})=>{
+    this.axios.get("/user/suppliers").then(({ data }) => {
       this.items = data.suppliers;
-    })
+    });
   },
   methods: {
     logOut() {
       this.setLogin();
       this.$router.push("/login");
     },
-    log(id){
+    log(id) {
       console.log(id);
     },
     ...mapActions(["setLogin"]),

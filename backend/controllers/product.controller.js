@@ -9,7 +9,8 @@ async function add(req,res) {
 
 async function getAll(req,res) {
     console.log("-..-------------------")
-    let products = await productService.getAll(req.userId);
+    const userId = req.query.userId || req.userId;
+    let products = await productService.getAll(userId);
     console.log(products);
     res.json({products})
 }
