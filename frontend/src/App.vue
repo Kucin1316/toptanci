@@ -1,18 +1,19 @@
 <template>
   <v-app id="inspire">
     <v-app-bar color="yellow darken-1" class="black--text" app>
-      <div class="d-flex justify-space-around" style="width: 100%">
-        <v-toolbar-title>Toptanwsdsdfcim</v-toolbar-title>
+      <div class="d-flex justify-space-around align-center" style="width: 100%">
         <div>
-          <v-form>
-            <v-autocomplete
-              v-model="value"
-              :items="items"
-              dense
-              filled
-              label="Filled"
-            ></v-autocomplete>
-          </v-form>
+          <v-toolbar-title>Toptanwsdsdfcim</v-toolbar-title>
+        </div>
+        <div class="mt-7">
+          <v-combobox placeholder="Suppliers..." :items="items" clearable solo>
+            <template v-slot:item="{ index, item }">
+              <p :key="index" @click="$router.push('/supplier/'+item.id)" >{{item.companyName}} </p>
+            </template>
+<template v-slot:selection="{ index, item }">
+{{item.companyName}} 🚀
+</template>
+          </v-combobox>
         </div>
         <div>
           <v-btn
@@ -44,45 +45,23 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
-    sItems: [],
-    sFiltered: [],
-    sSearch: "",
-    suppliers: [],
-    value: null,
+    items:[]
   }),
   computed: {
     ...mapGetters(["loginData"]),
-     items(){
-      return this.suppliers.map((supplier)=>{
-        return supplier.companyName;
-      })
-    }
   },
   beforeMount() {
-    this.axios.get("/user/suppliers").then((res) => {
-      let { suppliers } = res.data;
-      this.suppliers = suppliers.map((supplier) => {
-        const { id, companyName } = supplier;
-        return { id, companyName };
-      });
-    });
+    this.axios.get('/user/suppliers').then(({data})=>{
+      this.items = data.suppliers;
+    })
   },
-
   methods: {
-    searchSupliers() {
-      // Items have already been loaded
-      console.log(this.sSearch);
-      let items = this.sItems.filter((item) => {
-        console.log(item.CompanyName.toLowerCase().includes(this.sSearch));
-        return item.CompanyName.toLowerCase().includes(this.sSearch);
-      });
-      this.sFiltered = items;
-      console.log(items);
-      this.$forceUpdate();
-    },
     logOut() {
       this.setLogin();
       this.$router.push("/login");
+    },
+    log(id){
+      console.log(id);
     },
     ...mapActions(["setLogin"]),
   },
