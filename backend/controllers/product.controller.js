@@ -28,9 +28,10 @@ async function getById(req,res) {
 }
 
 async function deleteById(req,res) {
-    const {productID} = req.params;
+    const {productId} = req.params;
     const userId = req.userId;
-    let status = await productService.deleteById(userId,productID);
+    console.log("*************",productId,userId);
+    let status = await productService.deleteById(userId,productId);
     if (status) {
         res.json({status:"Ürün silindi."})
     }else {

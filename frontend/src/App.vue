@@ -3,21 +3,10 @@
     <v-app-bar color="yellow darken-1" class="black--text" app>
       <div class="d-flex justify-space-around align-center" style="width: 100%">
         <div>
-          <v-toolbar-title>Toptancı</v-toolbar-title>
+          <v-toolbar-title style="cursor:pointer" @click="$router.push('/dashboard')">Toptancı</v-toolbar-title>
         </div>
-        <div class="mt-7">
-          <v-combobox placeholder="Suppliers..." :items="items" clearable solo>
-            <template v-slot:item="{ index, item }">
-              <p :key="index" @click="$router.push(`/supplier/${item.id}`)">
-                {{ item.companyName }}
-              </p>
-            </template>
-            <!-- eslint-disable-next-line -->
-            <template v-slot:selection="{ index, item }">
-              {{ item.companyName }} 🚀
-            </template>
-          </v-combobox>
-        </div>
+        <div></div>
+        <v-spacer></v-spacer>
         <div>
           <v-btn
             @click="!loginData.isLogin ? $router.push('/login') : logOut()"
@@ -48,16 +37,11 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
-    items: [],
   }),
   computed: {
     ...mapGetters(["loginData"]),
   },
-  beforeMount() {
-    this.axios.get("/user/suppliers").then(({ data }) => {
-      this.items = data.suppliers;
-    });
-  },
+
   methods: {
     logOut() {
       this.setLogin();

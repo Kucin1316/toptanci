@@ -1,10 +1,13 @@
 <template>
   <v-container>
-    <v-card class="d-flex">
+    <v-card class="d-flex yellow darken-1 black--text ">    
+       <v-btn icon>
+            <v-icon> mdi-arrow-left </v-icon>
+          </v-btn>
       <v-container>
         <v-row>
           <v-col>
-            <h1>Toptancı Selami</h1>  <v-icon>mdi-market</v-icon>
+            <h1>Kaplan Pazarlama</h1>  <v-icon>mdi-market</v-icon>
             <p class="font-weight-thin subtitle-2">
            <v-icon>mdi-store-outline</v-icon> Yakacık Mah. Selami Sok. No:25 Alaçam/Samsun
             </p>
@@ -22,17 +25,17 @@
     </v-card>
     <v-divider></v-divider>
     <v-card class="mt-4">
-         <ProductCard :items="products"/>
+         <ProductCardTable :items="products"/>
     </v-card>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import ProductCard from "../components/common/ProductCard";
+import ProductCardTable from "../components/common/ProductCardTable";
 export default {
   components:{
-    ProductCard
+    ProductCardTable
   },
   beforeMount() {
     this.getProducts();

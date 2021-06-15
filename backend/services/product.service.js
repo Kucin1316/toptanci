@@ -4,8 +4,8 @@ function add(productData) {
   return product.create(productData);
 }
 
-function deleteById(companyId, id) {
-  return product.destroy({ where: (productId = id), companyId: companyId });
+function deleteById(userId, productId) {
+  return product.destroy({ where: {productId, userId} });
 }
 
 function getById(userId, id) {

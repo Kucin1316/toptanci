@@ -11,7 +11,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import ProductCard from "../components/common/ProductCard";
+import ProductCard from "../components/common/ProductCardTable";
 export default {
   components:{
     ProductCard

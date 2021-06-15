@@ -45,6 +45,9 @@ export default new Vuex.Store({
     },
     products({products}){
       return products;
+    },
+    userData({user}){
+      return user
     }
   },
   plugins:[vuexLocal.plugin]

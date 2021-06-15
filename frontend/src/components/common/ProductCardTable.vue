@@ -9,14 +9,14 @@
     hide-default-footer
   >
     <template v-slot:header>
-      <v-toolbar dark color="yellow darken-1 " class="mb-1 ">
+      <v-toolbar dark color="yellow darken-1 " class="mb-1">
         <v-text-field
           v-model="search"
           clearable
           flat
           solo-inverted
-          hide-details 
-                  prepend-inner-icon="mdi-magnify"
+          hide-details
+          prepend-inner-icon="mdi-magnify"
           label="Search"
         ></v-text-field>
         <template v-if="$vuetify.breakpoint.mdAndUp">
@@ -62,13 +62,37 @@
             <v-simple-table>
               <template v-slot:default>
                 <tbody>
-                  <tr  v-for="(key, index) in filteredKeys" :key="index">
-                    <td  :class="{ 'blue--text': sortBy === key }"> {{ key }}</td>
-                    <td :class="{ 'blue--text': sortBy === key }">{{ item[key] }}</td>
+                  <tr v-for="(key, index) in filteredKeys" :key="index">
+                    <td :class="{ 'blue--text': sortBy === key }">{{ key }}</td>
+                    <td :class="{ 'blue--text': sortBy === key }">
+                      {{ item[key] }}
+                    </td>
                   </tr>
                 </tbody>
               </template>
             </v-simple-table>
+            <div class="d-flex">
+              
+              <template v-if="isMine">
+                <v-spacer></v-spacer>
+                <v-btn disabled rounded class="blue ma-3 darken-3 white--text"
+                  >Edit <v-icon>mdi-cogs</v-icon>
+                </v-btn>
+
+                <v-spacer></v-spacer>
+                <v-btn @click="deleteProduct(item.productId)" rounded class="red ma-3 darken-3 white--text"
+                  >Delete <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </template>
+
+              <template v-else>
+                <v-spacer></v-spacer>
+                <v-btn disabled rounded class="yellow ma-3 darken-3"
+                  >Add to cart <v-icon>mdi-cart</v-icon>
+                </v-btn>
+              </template>
+
+            </div>
           </v-card>
         </v-col>
       </v-row>
@@ -119,13 +143,30 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: ["items"],
+  beforeMount(){
+    if(this.userData.id == this.$route.params.id){
+      this.isMine = true;
+      
+    }else{
+      this.isMine = false;
+      this.keys = [
+        "priceGross",
+        "productId",
+        "amount",
+        "unit"
+      ]
+    }
+  },
   data() {
     return {
       itemsPerPageArray: [10, 25, 50, 100],
       search: "",
       filter: {},
+      isMine:null,
       sortDesc: false,
       page: 1,
       itemsPerPage: 10,
@@ -148,6 +189,7 @@ export default {
     filteredKeys() {
       return this.keys.filter((key) => key !== "Name");
     },
+    ...mapGetters(['userData'])
   },
   methods: {
     nextPage() {
@@ -159,11 +201,18 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
+    deleteProduct(productId){
+      this.axios.delete(`/product/${productId}`).then(({data})=>{
+        console.log(data);
+      })
+    }
   },
 };
 </script>
 <style>
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > td, .v-data-table > .v-data-table__wrapper > table > thead > tr > td, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > td {
-    height: 0 !important;
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > td,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > td {
+  height: 0 !important;
 }
 </style>
