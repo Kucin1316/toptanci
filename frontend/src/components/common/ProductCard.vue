@@ -9,14 +9,14 @@
     hide-default-footer
   >
     <template v-slot:header>
-      <v-toolbar dark color="blue darken-3" class="mb-1">
+      <v-toolbar dark color="yellow darken-1 " class="mb-1 ">
         <v-text-field
           v-model="search"
           clearable
           flat
           solo-inverted
-          hide-details
-          prepend-inner-icon="mdi-magnify"
+          hide-details 
+                  prepend-inner-icon="mdi-magnify"
           label="Search"
         ></v-text-field>
         <template v-if="$vuetify.breakpoint.mdAndUp">
