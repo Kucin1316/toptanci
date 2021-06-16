@@ -5,7 +5,7 @@
           <ProductCard/>
       </v-col>
     </v-row> -->
-    <ProductCard :items="products"/>
+    <ProductCard :isMine="true" :items="products"/>
   </v-container>
 </template>
 

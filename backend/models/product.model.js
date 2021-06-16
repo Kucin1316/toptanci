@@ -39,6 +39,11 @@ Product.init({
     amount: {
         type: DataTypes.TEXT,
         allowNull: false
+    },
+    isActive:{
+        type:DataTypes.BOOLEAN,
+        allowNull:false,
+        defaultValue:true
     }
 }, { 
     sequelize,
@@ -46,6 +51,6 @@ Product.init({
     charset : "utf8"
 })
  
-//Product.sync({force: true});  // Komutu ile tablodaki degisiklikleri veritabaninda güncellemeye zorluyor. 
+//Product.sync({force:true});  // Komutu ile tablodaki degisiklikleri veritabaninda güncellemeye zorluyor. 
 
 module.exports = Product;

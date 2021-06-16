@@ -28,6 +28,9 @@ import { mapGetters } from "vuex";
 export default {
     beforeMount(){
         this.axios.get("/user/suppliers").then(({data})=>{
+         data.suppliers = data.suppliers.filter((item)=>{
+            return item.id != this.userData.id
+          })
             this.items = data.suppliers
         })
     },
@@ -38,7 +41,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loginData"]),
+    ...mapGetters(["loginData","userData"]),
   },
   watch:{
       selectedSupplier(id){

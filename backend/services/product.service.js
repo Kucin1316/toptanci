@@ -17,8 +17,8 @@ function getAll(userId) {
   return product.findAll({ where: { userId }, });
 }
 
-function updateById(userId, productID, data) {
-  return product.update(data, { where: { userId, productID } }); // ?
+function updateById(userId, productData) {
+  return product.update(productData, { where: { userId, productId:productData.productId } }); // ?
 }
 
 module.exports = {add,deleteById,getById,getAll,updateById}

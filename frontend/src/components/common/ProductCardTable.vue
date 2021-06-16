@@ -53,7 +53,17 @@
           md="4"
           lg="3"
         >
-          <v-card>
+          <v-card  :loading="isLoading ? true:false">
+            <div>
+              <v-switch
+                label="Active"
+                color="success"
+                @change="updateProduct(item)"
+               
+                v-model="item.isActive"
+                hide-details
+              ></v-switch>
+            </div>
             <v-card-title class="subheading font-weight-bold">
               {{ item.name }}
             </v-card-title>
@@ -72,15 +82,15 @@
               </template>
             </v-simple-table>
             <div class="d-flex">
-              
-              <template v-if="isMine">
-                <v-spacer></v-spacer>
+              <template class="d-flex" v-if="isMine">
                 <v-btn disabled rounded class="blue ma-3 darken-3 white--text"
                   >Edit <v-icon>mdi-cogs</v-icon>
                 </v-btn>
 
-                <v-spacer></v-spacer>
-                <v-btn @click="deleteProduct(item.productId)" rounded class="red ma-3 darken-3 white--text"
+                <v-btn
+                  @click="deleteProduct(item.productId)"
+                  rounded
+                  class="red ma-3 darken-3 white--text"
                   >Delete <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </template>
@@ -91,7 +101,6 @@
                   >Add to cart <v-icon>mdi-cart</v-icon>
                 </v-btn>
               </template>
-
             </div>
           </v-card>
         </v-col>
@@ -143,32 +152,35 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  props: ["items"],
-  beforeMount(){
-    if(this.userData.id == this.$route.params.id){
-      this.isMine = true;
-      
-    }else{
-      this.isMine = false;
-      this.keys = [
-        "priceGross",
-        "productId",
-        "amount",
-        "unit"
-      ]
+  props: {
+    items: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
+    isMine: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  beforeMount() {
+    if (!this.isMine) {
+      this.keys = ["priceGross", "productId", "amount", "unit"];
     }
+    this.items.forEach((item)=>(item.isLoading = false))
   },
   data() {
     return {
       itemsPerPageArray: [10, 25, 50, 100],
       search: "",
       filter: {},
-      isMine:null,
       sortDesc: false,
       page: 1,
+      isLoading:false,
       itemsPerPage: 10,
       sortBy: "name",
       keys: [
@@ -189,7 +201,7 @@ export default {
     filteredKeys() {
       return this.keys.filter((key) => key !== "Name");
     },
-    ...mapGetters(['userData'])
+    ...mapGetters(["userData"]),
   },
   methods: {
     nextPage() {
@@ -201,11 +213,31 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
-    deleteProduct(productId){
-      this.axios.delete(`/product/${productId}`).then(({data})=>{
+    async updateProduct(product) {
+      this.toggleActive(product.id);
+      let data = await this.axios.patch("/product/", { product });
+      console.log(data);
+      this.toggleActive(product.id);
+      console.log(product);
+    },
+    deleteProduct(productId) {
+      this.axios.delete(`/product/${productId}`).then(({ data }) => {
         console.log(data);
-      })
-    }
+      });
+    },
+    toggleActive(id) {
+      this.items.forEach((item) => {
+        if (item.id == id) {
+          console.log("SELAMİ");
+          this.isLoading = this.isLoading ? false:'warning';
+          console.log(item.isLoading);
+          console.log(item.id,id);
+           this.$forceUpdate();
+           
+        }
+      });
+     
+    },
   },
 };
 </script>

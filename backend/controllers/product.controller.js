@@ -41,12 +41,12 @@ async function deleteById(req,res) {
 
 async function updateById(req,res) {
     const userId = req.userId;
-    const {productData,productID} = req.body;
-    let status = await productService.updateById(userId,productID,productData);
+    const {product} = req.body;
+    let status = await productService.updateById(userId,product);
     if (status) {
-        res.json({status:"Ürün silindi."})
+       setTimeout(()=> {res.json({status:"Ürün Güncellendi."})},1000)
     }else {
-        res.json({status:"Ürün bulunamadi..."})
+        res.json({status:"Hata"})
     }
 }
 
