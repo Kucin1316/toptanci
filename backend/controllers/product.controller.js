@@ -33,7 +33,7 @@ async function deleteById(req,res) {
     console.log("*************",productId,userId);
     let status = await productService.deleteById(userId,productId);
     if (status) {
-        res.json({status:"Ürün silindi."})
+       setTimeout( ()=>{res.json({status:"Ürün silindi."})},2000)
     }else {
         res.json({status:"Ürün bulunamadi..."})
     }

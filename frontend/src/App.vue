@@ -3,9 +3,31 @@
     <v-app-bar color="yellow darken-1" class="black--text" app>
       <div class="d-flex justify-space-around align-center" style="width: 100%">
         <div>
-          <v-toolbar-title style="cursor:pointer" @click="$router.push('/dashboard')">Toptancı</v-toolbar-title>
+          <v-toolbar-title
+            style="cursor: pointer"
+            @click="$router.push('/dashboard')"
+            >Toptancı</v-toolbar-title
+          >
         </div>
-        <div></div>
+        <v-spacer></v-spacer>
+        <div class="d-flex justify-space-between" style="width:50%">
+          <v-btn to="/dashboard"  rounded color="light">
+            <v-icon left> mdi-home </v-icon>
+            Dashboard
+          </v-btn>
+              <v-btn to="/myOrders" rounded color="light">
+            <v-icon left> mdi-shopping-outline </v-icon>
+            My Orders
+          </v-btn>
+             <v-btn to="/incomingOrders" rounded color="light">
+            <v-icon left> mdi-shopping</v-icon>
+            Incoming Orders
+          </v-btn>
+             <v-btn to="/myProducts" rounded color="light">
+            <v-icon left> mdi-package-variant</v-icon>
+            My Products
+          </v-btn>
+        </div>
         <v-spacer></v-spacer>
         <div>
           <v-btn
@@ -14,7 +36,7 @@
           >
             <v-icon size="32">mdi-login</v-icon>
           </v-btn>
-          <v-btn @click="drawer = !drawer" icon>
+          <v-btn v-if="$route.name == 'Supplier'" @click="drawer = !drawer" icon>
             <v-icon size="32">mdi-cart</v-icon>
           </v-btn>
         </div>
@@ -41,7 +63,9 @@ export default {
   computed: {
     ...mapGetters(["loginData"]),
   },
-
+beforeMount(){
+  console.log(this.$route);
+},
   methods: {
     logOut() {
       this.setLogin();

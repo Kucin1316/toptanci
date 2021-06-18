@@ -53,56 +53,7 @@
           md="4"
           lg="3"
         >
-          <v-card  :loading="isLoading ? true:false">
-            <div>
-              <v-switch
-                label="Active"
-                color="success"
-                @change="updateProduct(item)"
-               
-                v-model="item.isActive"
-                hide-details
-              ></v-switch>
-            </div>
-            <v-card-title class="subheading font-weight-bold">
-              {{ item.name }}
-            </v-card-title>
-
-            <v-divider></v-divider>
-            <v-simple-table>
-              <template v-slot:default>
-                <tbody>
-                  <tr v-for="(key, index) in filteredKeys" :key="index">
-                    <td :class="{ 'blue--text': sortBy === key }">{{ key }}</td>
-                    <td :class="{ 'blue--text': sortBy === key }">
-                      {{ item[key] }}
-                    </td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-            <div class="d-flex">
-              <template class="d-flex" v-if="isMine">
-                <v-btn disabled rounded class="blue ma-3 darken-3 white--text"
-                  >Edit <v-icon>mdi-cogs</v-icon>
-                </v-btn>
-
-                <v-btn
-                  @click="deleteProduct(item.productId)"
-                  rounded
-                  class="red ma-3 darken-3 white--text"
-                  >Delete <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </template>
-
-              <template v-else>
-                <v-spacer></v-spacer>
-                <v-btn disabled rounded class="yellow ma-3 darken-3"
-                  >Add to cart <v-icon>mdi-cart</v-icon>
-                </v-btn>
-              </template>
-            </div>
-          </v-card>
+        <ProductCard :deleteItem="deleteItem" :isMine="isMine" :sortBy="sortBy" :item="item" :keys="keys" />
         </v-col>
       </v-row>
     </template>
@@ -153,8 +104,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+import ProductCard from './ProductCard.vue';
 
 export default {
+  components: { ProductCard },
   props: {
     items: {
       type: Array,
@@ -220,24 +173,14 @@ export default {
       this.toggleActive(product.id);
       console.log(product);
     },
-    deleteProduct(productId) {
-      this.axios.delete(`/product/${productId}`).then(({ data }) => {
-        console.log(data);
-      });
-    },
-    toggleActive(id) {
-      this.items.forEach((item) => {
-        if (item.id == id) {
-          console.log("SELAMİ");
-          this.isLoading = this.isLoading ? false:'warning';
-          console.log(item.isLoading);
-          console.log(item.id,id);
-           this.$forceUpdate();
-           
-        }
-      });
-     
-    },
+  
+      deleteItem(id){
+        let index = this.items.findIndex((i)=>{
+          return i.id == id;
+        });
+        this.items.splice(index,1)
+      }
+  
   },
 };
 </script>

@@ -8,7 +8,7 @@ import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import MyProducts from '../views/MyProducts.vue'
 import Supplier from '../views/Supplier.vue';
-
+import PageNotFound from '../views/PageNotFound'
 import store from '../store'
 
 
@@ -49,7 +49,12 @@ const routes = [
     meta: {
       auth: true
     }
-  }
+  },
+  {
+    path: '*',
+    name: 'PageNotFound',
+    component: PageNotFound,
+  },
 ]
 
 const router = new VueRouter({
